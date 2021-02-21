@@ -7,7 +7,7 @@
 using namespace std;
 string chooseFile();
 
-int main() {	
+int main(int j) {	
 	setlocale(LC_ALL, "ru");
 	openChoosedFile();
 	system("cls");
@@ -24,23 +24,27 @@ string chooseFile() {
 		getline(allPuncts, punctsList[i]);
 	}
 
-	cout << setw(5) << drawnPoint + punctsList[0] << endl;
-	for (int i = 1; i < PUNCTS; i++) {
-		cout << setw(5) << punctsList[i] << endl;
+	for (int i = 0; i < PUNCTS; i++) {
+		if (i == j) {
+			cout << setw(5) << drawnPoint + punctsList[i] << endl;
+		}
+		else {
+			cout << setw(5) << punctsList[i] << endl;
+		}
 	}
 
-	char _ch = 'a';
+	char selectingFile = 'a';
 
-	while (_ch != 13) {
-		_ch = _getch();
+	while (selectingFile != 13) {
+		selectingFile = _getch();
 		system("cls");
-		if (_ch == 's') {
+		if (selectingFile == 's') {
 			j++;
 			if (j >= PUNCTS) {
 				j = 0;
 			}
 		}
-		if (_ch == 'w') {
+		if (selectingFile == 'w') {
 			j--;
 			if (j < 0) {
 				j = PUNCTS;
@@ -74,6 +78,15 @@ void openChoosedFile() {
 
 	while (task.get(fileStream))
 		cout << fileStream;
+
 	task.close();
+
+	char enterWaiting = 'a';
+	while (enterWaiting != 13) {
+		enterWaiting = _getch();
+	}
+
 	system("pause>NUL");
+	system("cls");
+	main(j);
 }
