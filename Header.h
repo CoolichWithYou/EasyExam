@@ -2,8 +2,8 @@
 #define HEADER_H
 
 void openChoosedFile();
+int countOfTopic();
 
-const int PUNCTS = 30;
-int j = 0;
+int j = 0, q = 0;
 
 #endif // !HEADER.H

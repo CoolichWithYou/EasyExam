@@ -15,16 +15,20 @@ int main(int j) {
 	return 0;
 }
 string chooseFile() {
-	string punctsList[PUNCTS];
+	int Puncts = countOfTopic();
+	
 	string drawnPoint = "-> ";
 	fstream allPuncts("qList.txt");
 	string jLocation;
 
-	for (int i = 0; i < PUNCTS; i++) {
+	string* punctsList = new string[Puncts];
+
+	for (int i = 0; i < Puncts; i++) {
 		getline(allPuncts, punctsList[i]);
 	}
+	
 
-	for (int i = 0; i < PUNCTS; i++) {
+	for (int i = 0; i < Puncts; i++) {
 		if (i == j) {
 			cout << setw(5) << drawnPoint + punctsList[i] << endl;
 		}
@@ -40,17 +44,17 @@ string chooseFile() {
 		system("cls");
 		if (selectingFile == 's') {
 			j++;
-			if (j >= PUNCTS) {
+			if (j >= Puncts) {
 				j = 0;
 			}
 		}
 		if (selectingFile == 'w') {
 			j--;
 			if (j < 0) {
-				j = PUNCTS;
+				j = Puncts;
 			}
 		}
-		for (int i = 0; i < PUNCTS; i++) {
+		for (int i = 0; i < Puncts; i++) {
 			if (i == j) {
 				cout << drawnPoint + punctsList[i] << endl;
 			}
@@ -89,4 +93,17 @@ void openChoosedFile() {
 	system("pause>NUL");
 	system("cls");
 	main(j);
+}
+int countOfTopic() {
+	int count = 0;
+	char fileStream;
+
+	fstream allPuncts("qList.txt");
+	while (allPuncts.get(fileStream)) {
+		if (fileStream == '\n')
+			count++;
+	}
+	allPuncts.close();
+
+	return count+1;
 }
