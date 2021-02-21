@@ -44,9 +44,8 @@ string chooseFile() {
 
 	string* punctsList = new string[Puncts];
 
-	for (int i = 0; i < Puncts; i++) {
+	for (int i = 0; i < Puncts; i++)
 		getline(allPuncts, punctsList[i]);
-	}
 	
 
 	for (int i = 0; i < Puncts; i++) {
@@ -55,9 +54,8 @@ string chooseFile() {
 			cout << setw(5) << drawnPoint + punctsList[i] << endl;
 			setColor(White, Black);
 		}
-		else {
+		else
 			cout << setw(5) << punctsList[i] << endl;
-		}
 	}
 
 	char selectingFile = 'a';
@@ -67,15 +65,13 @@ string chooseFile() {
 		system("cls");
 		if (selectingFile == 's') {
 			j++;
-			if (j >= Puncts) {
+			if (j >= Puncts)
 				j = 0;
-			}
 		}
 		if (selectingFile == 'w') {
 			j--;
-			if (j < 0) {
+			if (j < 0)
 				j = Puncts;
-			}
 		}
 		for (int i = 0; i < Puncts; i++) {
 			if (i == j) {
@@ -83,9 +79,8 @@ string chooseFile() {
 				cout << drawnPoint + punctsList[i] << endl;
 				setColor(White, Black);
 			}
-			else {
+			else 
 				cout << setw(5) << punctsList[i] << endl;
-			}
 		}
 		jLocation = to_string(j+1);
 	}
@@ -111,11 +106,10 @@ void openChoosedFile() {
 	task.close();
 
 	char enterWaiting = 'a';
-	while (enterWaiting != 13) {
-		enterWaiting = _getch();
-	}
 
-	system("pause>NUL");
+	while (enterWaiting != 13)
+		enterWaiting = _getch();
+
 	system("cls");
 	main(j);
 }
