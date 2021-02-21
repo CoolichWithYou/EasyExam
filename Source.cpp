@@ -1,8 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <conio.h>
 #include <string>
+#include <conio.h>
 #include "HEADER.H"
 using namespace std;
 
@@ -28,8 +28,12 @@ enum ConsoleColor
 
 HANDLE hConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 
+string txtFilesFolder = "txtFiles/";
+string fileExtension = ".txt";
+
 int main(int j) {	
 	setlocale(LC_ALL, "ru");
+	txtFilesCreator();
 	openChoosedFile();
 	system("cls");
 	system("pause>NUL");
@@ -89,9 +93,7 @@ string chooseFile() {
 	return jLocation;
 }
 void openChoosedFile() {
-	string txtFilesFolder = "txtFiles\\";
 	string choose = chooseFile();
-	string fileExtension = ".txt";
 
 	choose = txtFilesFolder + choose + fileExtension; // (j+1)+.txt
 	fstream task(choose);
@@ -125,6 +127,14 @@ int countOfTopic() {
 	allPuncts.close();
 
 	return count+1;
+}
+void txtFilesCreator() {
+	string fileAddress;
+	int fileCount = countOfTopic();
+	for (int i = 0; i < fileCount; i++) {
+		fileAddress = txtFilesFolder + to_string(i+1) + fileExtension;
+		ofstream checkAvailability(fileAddress, ios_base::app);
+	}
 }
 void setColor(int text, int background) {
 	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
