@@ -1,8 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <conio.h>
 #include <string>
+#include <conio.h>
 #include "HEADER.H"
 using namespace std;
 
@@ -28,13 +28,33 @@ enum ConsoleColor
 
 HANDLE hConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 
+string txtFilesFolder = "txtFiles/";
+string fileExtension = ".txt";
+bool cotRunCheck = false;
+
 int main(int j) {	
 	setlocale(LC_ALL, "ru");
+	if(!cotRunCheck)
+		txtFilesCreator();
 	openChoosedFile();
 	system("cls");
 	system("pause>NUL");
 	return 0;
 }
+int countOfTopic() {
+	int count = 0;
+	char fileStream;
+
+	fstream allPuncts("qList.txt");
+	while (allPuncts.get(fileStream)) {
+		if (fileStream == '\n')
+			count++;
+	}
+	allPuncts.close();
+
+	return count + 1;
+}
+
 string chooseFile() {
 	int Puncts = countOfTopic();
 	
@@ -89,9 +109,7 @@ string chooseFile() {
 	return jLocation;
 }
 void openChoosedFile() {
-	string txtFilesFolder = "txtFiles\\";
 	string choose = chooseFile();
-	string fileExtension = ".txt";
 
 	choose = txtFilesFolder + choose + fileExtension; // (j+1)+.txt
 	fstream task(choose);
@@ -113,18 +131,14 @@ void openChoosedFile() {
 	system("cls");
 	main(j);
 }
-int countOfTopic() {
-	int count = 0;
-	char fileStream;
-
-	fstream allPuncts("qList.txt");
-	while (allPuncts.get(fileStream)) {
-		if (fileStream == '\n')
-			count++;
+void txtFilesCreator() {
+	string fileAddress;
+	int fileCount = countOfTopic();
+	for (int i = 0; i < fileCount; i++) {
+		fileAddress = txtFilesFolder + to_string(i+1) + fileExtension;
+		ofstream checkAvailability(fileAddress, ios_base::app);
+		checkAvailability.close();
 	}
-	allPuncts.close();
-
-	return count+1;
 }
 void setColor(int text, int background) {
 	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
