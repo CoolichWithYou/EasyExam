@@ -1,14 +1,20 @@
 #include <iostream>
-#include <string>
 #include <fstream>
 #include <iomanip>
 #include <conio.h>
+#include <string>
 #include "HEADER.H"
 using namespace std;
+string chooseFile();
 
 int main() {	
 	setlocale(LC_ALL, "ru");
-
+	openChoosedFile();
+	system("cls");
+	system("pause>NUL");
+	return 0;
+}
+string chooseFile() {
 	string punctsList[PUNCTS];
 	string drawnPoint = "-> ";
 	fstream allPuncts("qList.txt");
@@ -18,8 +24,8 @@ int main() {
 		getline(allPuncts, punctsList[i]);
 	}
 
-	cout << setw(5) << drawnPoint + punctsList[0] << endl; //вывод первой строки с указателем
-	for (int i = 1; i < PUNCTS; i++) { //вывод оставшихся
+	cout << setw(5) << drawnPoint + punctsList[0] << endl;
+	for (int i = 1; i < PUNCTS; i++) {
 		cout << setw(5) << punctsList[i] << endl;
 	}
 
@@ -48,12 +54,26 @@ int main() {
 				cout << setw(5) << punctsList[i] << endl;
 			}
 		}
-		jLocation = to_string(j);
+		jLocation = to_string(j+1);
 	}
-
-	system("cls");
 	allPuncts.close();
-	system("pause>NUL");
-	return 0;
-}
 
+	return jLocation;
+}
+void openChoosedFile() {
+	string txtFilesFolder = "txtFiles\\";
+	string choose = chooseFile();
+	string fileExtension = ".txt";
+
+	choose = txtFilesFolder + choose + fileExtension; // (j+1)+.txt
+	fstream task(choose);
+
+	system("cls"); //clear window
+
+	char fileStream;
+
+	while (task.get(fileStream))
+		cout << fileStream;
+	task.close();
+	system("pause>NUL");
+}
