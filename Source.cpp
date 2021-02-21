@@ -5,7 +5,28 @@
 #include <string>
 #include "HEADER.H"
 using namespace std;
-string chooseFile();
+
+enum ConsoleColor
+{
+	Black = 0,
+	Blue = 1,
+	Green = 2,
+	Cyan = 3,
+	Red = 4,
+	Magenta = 5,
+	Brown = 6,
+	LightGray = 7,
+	DarkGray = 8,
+	LightBlue = 9,
+	LightGreen = 10,
+	LightCyan = 11,
+	LightRed = 12,
+	LightMagenta = 13,
+	Yellow = 14,
+	White = 15
+};
+
+HANDLE hConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 
 int main(int j) {	
 	setlocale(LC_ALL, "ru");
@@ -30,7 +51,9 @@ string chooseFile() {
 
 	for (int i = 0; i < Puncts; i++) {
 		if (i == j) {
+			setColor(Yellow, Black);
 			cout << setw(5) << drawnPoint + punctsList[i] << endl;
+			setColor(White, Black);
 		}
 		else {
 			cout << setw(5) << punctsList[i] << endl;
@@ -56,7 +79,9 @@ string chooseFile() {
 		}
 		for (int i = 0; i < Puncts; i++) {
 			if (i == j) {
+				setColor(Yellow, Black);
 				cout << drawnPoint + punctsList[i] << endl;
+				setColor(White, Black);
 			}
 			else {
 				cout << setw(5) << punctsList[i] << endl;
@@ -65,7 +90,7 @@ string chooseFile() {
 		jLocation = to_string(j+1);
 	}
 	allPuncts.close();
-
+	delete [] punctsList;
 	return jLocation;
 }
 void openChoosedFile() {
@@ -106,4 +131,8 @@ int countOfTopic() {
 	allPuncts.close();
 
 	return count+1;
+}
+void setColor(int text, int background) {
+	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hStdOut, (WORD)((background << 4) | text));
 }
