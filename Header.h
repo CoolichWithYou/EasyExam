@@ -4,7 +4,7 @@
 
 void setColor(int text, int background);
 void openChoosedFile();
-void txtFilesCreator();
 int countOfTopic();
 int j = 0, q = 0;
+
 #endif // !HEADER.H
