@@ -1,7 +1,5 @@
-#include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <string>
 #include <conio.h>
 #include "HEADER.H"
 using namespace std;
@@ -111,12 +109,16 @@ string chooseFile() {
 void openChoosedFile() {
 	string choose = chooseFile();
 
+	string chooseFix = choose;
+
 	choose = txtFilesFolder + choose + fileExtension; // (j+1)+.txt
 	fstream task(choose);
 
 	system("cls"); //clear window
 
 	char fileStream;
+
+	outputThemeName(chooseFix);
 
 	while (task.get(fileStream))
 		cout << fileStream;
@@ -143,4 +145,25 @@ void txtFilesCreator() {
 void setColor(int text, int background) {
 	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hStdOut, (WORD)((background << 4) | text));
+}
+void outputThemeName(string chooseTheme) {
+	int themeNumber = atoi(chooseTheme.c_str());
+
+	int Puncts = countOfTopic();
+
+	fstream allPuncts("qList.txt");
+
+	string* punctsList = new string[Puncts];
+
+	for (int i = 0; i <= Puncts; i++) {
+		getline(allPuncts, punctsList[i]);
+		if (i == themeNumber) {
+			setColor(Yellow, Black);
+			cout << setw(5) << punctsList[i - 1] << endl;
+			setColor(White, Black);
+		}
+	}
+
+	delete[] punctsList;
+	allPuncts.close();
 }
