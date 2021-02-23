@@ -4,8 +4,6 @@
 #include <string>
 #include <conio.h>
 #include "HEADER.H"
-
-
 using namespace std;
 
 enum ConsoleColor
@@ -32,19 +30,12 @@ HANDLE hConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 
 string txtFilesFolder = "txtFiles/";
 string fileExtension = ".txt";
-
 bool cotRunCheck = false;
 
 int main(int j) {	
-
-	SetConsoleCP(1251);
-	SetConsoleOutputCP(1251);
-
-	if (!cotRunCheck) {
+	setlocale(LC_ALL, "ru");
+	if(!cotRunCheck)
 		txtFilesCreator();
-		cotRunCheck = true;
-	}
-
 	openChoosedFile();
 	system("cls");
 	system("pause>NUL");
