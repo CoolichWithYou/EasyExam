@@ -1,30 +1,9 @@
-#include <fstream>
-#include <iomanip>
-#include <conio.h>
-#include "HEADER.H"
+#include "Menu.h"
+#include "Color.h"
+
 using namespace std;
 
-enum ConsoleColor
-{
-	Black = 0,
-	Blue = 1,
-	Green = 2,
-	Cyan = 3,
-	Red = 4,
-	Magenta = 5,
-	Brown = 6,
-	LightGray = 7,
-	DarkGray = 8,
-	LightBlue = 9,
-	LightGreen = 10,
-	LightCyan = 11,
-	LightRed = 12,
-	LightMagenta = 13,
-	Yellow = 14,
-	White = 15
-};
-
-HANDLE hConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+int j = 0, q = 0;
 
 string txtFilesFolder = "txtFiles/";
 string fileExtension = ".txt";
@@ -32,11 +11,12 @@ bool cotRunCheck = false;
 
 int main(int j) {	
 	setlocale(LC_ALL, "ru");
-	if(!cotRunCheck)
+	if (!cotRunCheck) {
 		txtFilesCreator();
+	}
 	openChoosedFile();
 	system("cls");
-	system("pause>NUL");
+	cin.get();
 	return 0;
 }
 int countOfTopic() {
@@ -45,8 +25,9 @@ int countOfTopic() {
 
 	fstream allPuncts("qList.txt");
 	while (allPuncts.get(fileStream)) {
-		if (fileStream == '\n')
+		if (fileStream == '\n') {
 			count++;
+		}
 	}
 	allPuncts.close();
 
@@ -62,8 +43,9 @@ string chooseFile() {
 
 	string* punctsList = new string[Puncts];
 
-	for (int i = 0; i < Puncts; i++)
+	for (int i = 0; i < Puncts; i++) {
 		getline(allPuncts, punctsList[i]);
+	}
 	
 
 	for (int i = 0; i < Puncts; i++) {
@@ -72,8 +54,9 @@ string chooseFile() {
 			cout << setw(5) << drawnPoint + punctsList[i] << endl;
 			setColor(White, Black);
 		}
-		else
+		else {
 			cout << setw(5) << punctsList[i] << endl;
+		}
 	}
 
 	char selectingFile = 'a';
@@ -83,13 +66,15 @@ string chooseFile() {
 		system("cls");
 		if (selectingFile == 's') {
 			j++;
-			if (j >= Puncts)
+			if (j >= Puncts) {
 				j = 0;
+			}
 		}
 		if (selectingFile == 'w') {
 			j--;
-			if (j < 0)
+			if (j < 0) {
 				j = Puncts;
+			}
 		}
 		for (int i = 0; i < Puncts; i++) {
 			if (i == j) {
@@ -97,8 +82,9 @@ string chooseFile() {
 				cout << drawnPoint + punctsList[i] << endl;
 				setColor(White, Black);
 			}
-			else 
+			else {
 				cout << setw(5) << punctsList[i] << endl;
+			}
 		}
 		jLocation = to_string(j+1);
 	}
@@ -120,15 +106,17 @@ void openChoosedFile() {
 
 	outputThemeName(chooseFix);
 
-	while (task.get(fileStream))
+	while (task.get(fileStream)) {
 		cout << fileStream;
+	}
 
 	task.close();
 
 	char enterWaiting = 'a';
 
-	while (enterWaiting != 13)
+	while (enterWaiting != 13) {
 		enterWaiting = _getch();
+	}
 
 	system("cls");
 	main(j);

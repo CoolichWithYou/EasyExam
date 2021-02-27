@@ -1,14 +1,15 @@
+#ifndef MENU_H
 #include <iostream>
-#include <windows.h>
 #include <string>
-#ifndef HEADER_H
-#define HEADER_H
+#include <fstream>
+#include <iomanip>
+#include <conio.h>
+#define MENU_H
 
-void setColor(int text, int background);
+
 void openChoosedFile();
 void txtFilesCreator();
 void outputThemeName(std::string chooseTheme);
 
 int countOfTopic();
-int j = 0, q = 0;
-#endif // !HEADER.H
+#endif // !MENU_H
