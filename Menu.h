@@ -4,8 +4,8 @@
 #include <fstream>
 #include <iomanip>
 #include <conio.h>
+#include "Color.h"
 #define MENU_H
-
 
 void openChoosedFile();
 void txtFilesCreator();

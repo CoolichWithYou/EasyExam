@@ -2,6 +2,7 @@
 #include "Color.h"
 
 using namespace std;
+using namespace ECC;
 
 int j = 0, q = 0;
 
@@ -50,7 +51,7 @@ string chooseFile() {
 
 	for (int i = 0; i < Puncts; i++) {
 		if (i == j) {
-			setColor(Yellow, Black);
+			ECC::setColor(Yellow, Black);
 			cout << setw(5) << drawnPoint + punctsList[i] << endl;
 			setColor(White, Black);
 		}
@@ -130,10 +131,7 @@ void txtFilesCreator() {
 		checkAvailability.close();
 	}
 }
-void setColor(int text, int background) {
-	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hStdOut, (WORD)((background << 4) | text));
-}
+
 void outputThemeName(string chooseTheme) {
 	int themeNumber = atoi(chooseTheme.c_str());
 
