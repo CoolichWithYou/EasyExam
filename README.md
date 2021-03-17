@@ -1,6 +1,8 @@
 # EasyExam
 this is a program for easy interaction with the theory of exams at school or university.
 
+![alt text](https://github.com/CoolichWithYou/EasyExam/blob/main/EasyExam.png?raw=true)
+
 **How to use:**
 
 use the file "QList", in which you, line by line, 
