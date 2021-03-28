@@ -7,6 +7,6 @@ add_executable(Menu
         Color.cpp
         Color.h
         Menu.cpp
-        Menu.hs
-        )
+        Menu.h
+        main.cpp Main.h)
 

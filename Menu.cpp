@@ -1,25 +1,13 @@
 #include "Menu.h"
 #include "Color.h"
+#include "Main.h"
 
 using namespace std;
 using namespace ECC;
 
-int j = 0, q = 0;
-
 string txtFilesFolder = "txtFiles/";
 string fileExtension = ".txt";
-bool cotRunCheck = false;
 
-int main(int j) {	
-	setlocale(LC_ALL, "ru");
-	if (!cotRunCheck) {
-		txtFilesCreator();
-	}
-	openChoosedFile();
-	system("cls");
-	cin.get();
-	return 0;
-}
 int countOfTopic() {
 	int count = 0;
 	char fileStream;
@@ -36,6 +24,7 @@ int countOfTopic() {
 }
 
 string chooseFile() {
+    int j = 0;
 	int Puncts = countOfTopic();
 	
 	string drawnPoint = "-> ";
@@ -120,7 +109,7 @@ void openChoosedFile() {
 	}
 
 	system("cls");
-	main(j);
+	main();
 }
 void txtFilesCreator() {
 	string fileAddress;
