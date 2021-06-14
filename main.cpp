@@ -1,9 +1,14 @@
 #include "Menu.h"
 #include "Main.h"
 
+#if defined(_WIN32) || defined(_WIN64)
+#include <windows.h>
+#endif
 
 int main() {
-    setlocale(LC_ALL, "ru");
+#if defined(_WIN32) || defined(_WIN64)
+    SetConsoleOutputCP(CP_UTF8);
+#endif
 
     bool cotRunCheck = false;
 
