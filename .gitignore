@@ -103,3 +103,16 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
+# Makefile
+cmake-build-debug/Makefile
+
+# CMakeCache
+cmake-build-debug/CMakeCache.txt
+
+# EasyExam
+cmake-build-debug/EasyExam.cbp
+
+# cmake_install
+cmake-build-debug/cmake_install.cmake
+cmake-build-debug/Testing/Temporary
+cmake-build-debug/CMakeFiles
