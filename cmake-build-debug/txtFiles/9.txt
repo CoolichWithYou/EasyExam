@@ -1,0 +1,243 @@
+Наследование в C++ происходит между классами и имеет тип отношений «является». Класс, от которого наследуют, 
+называется родительским (или «базовым», «суперклассом»), а класс, который наследует, называется дочерним (или «производным», «подклассом»).
+
+Вот простой класс Human для представления Человека:
+
+#include <string>
+ 
+class Human
+{
+public:
+    std::string m_name;
+    int m_age;
+ 
+    Human(std::string name = "", int age = 0)
+        : m_name(name), m_age(age)
+    {
+    }
+ 
+    std::string getName() const { return m_name; }
+    int getAge() const { return m_age; }
+ 
+};
+
+В этом классе мы определили только те члены, которые являются общими для всех объектов этого класса. Каждый Человек (независимо 
+от пола, профессии и т.д.) имеет Имя и Возраст.
+
+Обратите внимание, в примере, приведенном выше, мы сделали все переменные-члены и методы класса открытыми. Это сделано ради 
+простоты примера. Обычно переменные-члены нужно делать private. О средствах контроля доступа и о том, как это работает в 
+наследовании, мы поговорим на соответствующих уроках
+
+Класс BasketballPlayer:
+
+Предположим, что нам нужно написать программу, которая будет отслеживать информацию о баскетболистах. Мы можем сохранять 
+средний уровень игры баскетболиста и количество очков. Вот наш незавершенный класс BasketballPlayer:
+
+class BasketballPlayer
+{
+public:
+    double m_gameAverage;
+    int m_points;
+ 
+    BasketballPlayer(double gameAverage = 0.0, int points = 0)
+       : m_gameAverage(gameAverage), m_points(points)
+    {
+    }
+};
+
+Также нам нужно знать Имя и Возраст баскетболиста, а эта информация уже у нас есть: она хранится в классе Human.
+У нас есть три варианта добавления Имени и Возраста в BasketballPlayer:
+
+Добавить Имя и Возраст в класс BasketballPlayer непосредственно в качестве членов. Это плохой вариант, так как произойдет 
+дублирование кода, который уже существует в классе Human. Любые обновления в Human также должны быть продублированы и в 
+BasketballPlayer.
+
+Добавить класс Human в качестве члена в класс BasketballPlayer, используя композицию. Но возникает вопрос: «Может ли 
+BasketballPlayer иметь Human?». Нет, это некорректно.
+
+Сделать так, чтобы BasketballPlayer унаследовал необходимые атрибуты от Human. Помните, что тип отношений в наследовании — 
+«является». Является ли BasketballPlayer Human-ом (т.е. Человеком)? Конечно! Поэтому наш выбор — наследование.
+
+Делаем класс BasketballPlayer дочерним:
+
+Чтобы класс BasketballPlayer унаследовал информацию от класса Human, нам нужно после объявления BasketballPlayer 
+(class BasketballPlayer) использовать двоеточие, ключевое слово public и имя класса, от которого мы хотим унаследовать. 
+Это называется открытым наследованием:
+
+class BasketballPlayer : public Human
+{
+public:
+    double m_gameAverage;
+    int m_points;
+ 
+    BasketballPlayer(double gameAverage = 0.0, int points = 0)
+       : m_gameAverage(gameAverage), m_points(points)
+    {
+    }
+};
+
+Когда BasketballPlayer наследует свойства класса Human, то BasketballPlayer приобретает методы и переменные-члены 
+класса Human. Кроме того, BasketballPlayer имеет еще два своих собственных члена: m_gameAverage и m_points. 
+Здесь есть смысл, так как эти свойства специфичны только для BasketballPlayer, а не для каждого Human-а.
+
+Таким образом, объекты BasketballPlayer будут иметь 4 члена:
+
+m_gameAverage и m_points от BasketballPlayer;
+
+m_name и m_age от Human.
+
+Полный код программы:
+
+#include <iostream>
+#include <string>
+ 
+class Human
+{
+public:
+    std::string m_name;
+    int m_age;
+ 
+    Human(std::string name = "", int age = 0)
+        : m_name(name), m_age(age)
+    {
+    }
+ 
+    std::string getName() const { return m_name; }
+    int getAge() const { return m_age; }
+ 
+};
+ 
+// BasketballPlayer открыто наследует Human
+class BasketballPlayer : public Human
+{
+public:
+    double m_gameAverage;
+    int m_points;
+ 
+    BasketballPlayer(double gameAverage = 0.0, int points = 0)
+       : m_gameAverage(gameAverage), m_points(points)
+    {
+    }
+};
+ 
+int main()
+{
+    // Создаем нового Баскетболиста
+    BasketballPlayer anton;
+    // Присваиваем ему имя (мы можем делать это напрямую, так как m_name является public)
+    anton.m_name = "Anton";
+    // Выводим имя Баскетболиста
+    std::cout << anton.getName() << '\n'; // используем метод getName(), который мы унаследовали от класса Human
+ 
+    return 0;
+}
+
+Это работает, так как anton является объектом класса BasketballPlayer, а все объекты класса BasketballPlayer 
+имеют переменную-член m_name и метод getName(), унаследованные от класса Human.
+
+Дочерний класс Employee:
+
+Теперь напишем еще один класс, который также будет наследовать свойства Human. Например, класс Employee 
+(Работник). Работник «является» Человеком, поэтому использовать наследование здесь уместно:
+
+class Employee: public Human
+{
+public:
+    int m_wage;
+    long m_employeeID;
+ 
+    Employee(int wage = 0, long employeeID = 0)
+        : m_wage(wage), m_employeeID(employeeID)
+    {
+    }
+ 
+    void printNameAndWage() const
+    {
+        std::cout << m_name << ": " << m_wage << '\n';
+    }
+};
+
+Работник наследует m_name и m_age от Human-а (а также два метода) и имеет еще две 
+собственные переменные-члены и один метод. Обратите внимание, метод 
+printNameAndWage() использует переменные как из класса, к которому принадлежит 
+(Employee::m_wage), так и с родительского класса (Human::m_name).
+
+Обратите внимание, классы Employee и BasketballPlayer не имеют прямых отношений, 
+хотя оба наследуют свойства класса Human.
+
+Вот полный код:
+
+#include <iostream>
+#include <string>
+ 
+class Human
+{
+public:
+    std::string m_name;
+    int m_age;
+ 
+    std::string getName() const { return m_name; }
+    int getAge() const { return m_age; }
+ 
+    Human(std::string name = "", int age = 0)
+        : m_name(name), m_age(age)
+    {
+    }
+};
+ 
+// Employee открыто наследует Human
+class Employee: public Human
+{
+public:
+    int m_wage;
+    long m_employeeID;
+ 
+    Employee(int wage = 0, long employeeID = 0)
+        : m_wage(wage), m_employeeID(employeeID)
+    {
+    }
+ 
+    void printNameAndWage() const
+    {
+        std::cout << m_name << ": " << m_wage << '\n';
+    }
+};
+ 
+int main()
+{
+    Employee ivan(350, 787);
+    ivan.m_name = "Ivan"; // мы можем это сделать, так как m_name является public
+ 
+    ivan.printNameAndWage();
+    
+    return 0;
+}
+
+Цепочка наследований:
+
+Можно наследовать от класса, который сам наследует от другого класса. При этом 
+ничего примечательного или чего-нибудь особенного не происходит — всё аналогично 
+тому, что мы рассмотрели выше. Например, напишем класс Supervisor (Супервайзер). 
+Супервайзер — это Работник, который «является» Человеком. Мы уже написали класс 
+Employee, поэтому будем его использовать в качестве родительского класса:
+
+class Supervisor: public Employee
+{
+public:
+    // Этот Супервайзер может наблюдать максимум за 5-тью Работниками
+    long m_nOverseesIDs[5];
+ 
+    Supervisor()
+    {
+    }
+ 
+};
+
+Почему наследование является полезным?
+
+Использование наследования означает, что нам не нужно переопределять информацию из родительских классов в 
+дочерних. Мы автоматически получаем методы и переменные-члены суперкласса через наследование, а затем 
+просто добавляем специфичные методы или переменные-члены, которые хотим. Это не только экономит время 
+и усилия, но также является очень эффективным: если мы когда-либо обновим или изменим базовый класс
+(например, добавим новые функции или исправим ошибку), то все наши производные классы автоматически 
+унаследуют эти изменения!
